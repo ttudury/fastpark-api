@@ -1,0 +1,12 @@
+plazas:
+    type: rest
+    prefix: plazas
+    resource: ApiBundle\Controller\PlazaController
+estacionamientos:
+    type: rest
+    prefix: estacionamientos
+    resource: ApiBundle\Controller\EstacionamientoController
+normativas:
+    type: rest
+    prefix: normativas
+    resource: ApiBundle\Controller\NormativaController
