@@ -7,7 +7,7 @@ use Symfony\Component\Config\Loader\LoaderInterface;
 class AppKernel extends Kernel
 {
     public function registerBundles()
-    {var_dump('hola');exit;
+    {
         $bundles = [
             new Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
             new Symfony\Bundle\SecurityBundle\SecurityBundle(),
