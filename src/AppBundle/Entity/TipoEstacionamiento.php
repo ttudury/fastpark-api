@@ -14,7 +14,11 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\HasLifecycleCallbacks
  * @GEDMO\SoftDeleteable(fieldName="deletedAt")
  */
-class EstacionamientoViaPublica {
+class TipoEstacionamiento {
+
+    const TIPO_CONCESIONADO = 'con';
+    const TIPO_PRIVADO = 'pri';
+    const TIPO_MOTOCICLETAS = 'mot';
     
     /**
      * @ORM\Id
@@ -25,21 +29,25 @@ class EstacionamientoViaPublica {
     protected $id;
     
     /**
-     * @ORM\Column(type="string",length=4000)
+     * @ORM\Column(type="string", unique=true)
+     * @Assert\Choice(
+     *     choices = {"con", "pri", "mot"},
+     *     message = "Choose a valid type of instrument: 'concesionado', 'privado' or 'motocicletas'."
+     * )
+     * @Assert\NotBlank
+     * @Expose
+     */
+    protected $codigo;
+    
+    /**
+     * @ORM\Column(type="string")
      * @Assert\Type(
      *     type="string",
      *     message="The value {{ value }} is not a valid {{ type }}."
      * )
      * @Expose
      */
-    protected $codigo;
-
-    /**
-     * @Assert\NotBlank
-     * @ORM\ManyToOne(targetEntity=Normativa::class)
-     * @ORM\JoinColumn(nullable=false)
-     */
-    protected $normativa;
+    protected $nombre;
     
     /**
      * @Gedmo\Timestampable(on="create")
@@ -63,5 +71,19 @@ class EstacionamientoViaPublica {
     }
     public function getCodigo() {
         return $this->codigo;
+    }
+
+    public function setCodigo($codigo) {
+        $this->codigo = $codigo;
+        return $this;
+    }
+    
+    public function getNombre() {
+        return $this->nombre;
+    }
+
+    public function setNombre($nombre) {
+        $this->nombre = $nombre;
+        return $this;
     }
 }

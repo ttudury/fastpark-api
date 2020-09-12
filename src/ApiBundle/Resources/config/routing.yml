@@ -6,6 +6,10 @@ estacionamientos:
     type: rest
     prefix: estacionamientos
     resource: ApiBundle\Controller\EstacionamientoController
+viapublica:
+    type: rest
+    prefix: viapublica
+    resource: ApiBundle\Controller\EstacionamientoViaPublicaController
 normativas:
     type: rest
     prefix: normativas

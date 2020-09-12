@@ -8,6 +8,8 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use AppBundle\Entity\Estacionamiento;
+use AppBundle\Entity\TipoEstacionamiento;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class EstacionamientoController extends AbstractFOSRestController
 {
@@ -22,11 +24,14 @@ class EstacionamientoController extends AbstractFOSRestController
     }
 
     /**
-     * @Rest\Get("/estacionamientos/{tipoEstacionamiento}")
+     * @Rest\Get("/estacionamientos/{codigoTipoEstacionamiento}")
      */
-    public function getEstacionamientoPorTipoAction($tipoEstacionamiento) {
-        $repository = $this->getDoctrine()->getRepository(Estacionamiento::class);
-        $plazas = $repository->findBy(array('tipo' => $tipoEstacionamiento));
-        return $this->handleView($this->view($plazas, JsonResponse::HTTP_OK));
+    public function getEstacionamientosPorTipoAction($codigoTipoEstacionamiento) {
+        $tipoRepository = $this->getDoctrine()->getRepository(TipoEstacionamiento::class);
+        $tipoEstacionamiento = $tipoRepository->findOneBy(array('codigo'=>$codigoTipoEstacionamiento));
+        if (!$tipoEstacionamiento) throw new HttpException(404, "tipo de estacionamiento no encontrado para el codigo especificado: '" . $codigoTipoEstacionamiento."'");
+        $estacionamientoRepository = $this->getDoctrine()->getRepository(Estacionamiento::class);
+        $estacionamientos = $estacionamientoRepository->findBy(array('tipoEstacionamiento' => $tipoEstacionamiento));
+        return $this->handleView($this->view($estacionamientos, JsonResponse::HTTP_OK));
     }
 }

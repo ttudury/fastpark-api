@@ -15,10 +15,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @GEDMO\SoftDeleteable(fieldName="deletedAt")
  */
 class Estacionamiento {
-
-    const TIPO_CONCESIONADO = 'concesionado';
-    const TIPO_PRIVADO = 'privado';
-    const TIPO_MOTOCICLETAS = 'motocicletas';
     
     /**
      * @ORM\Id
@@ -29,16 +25,6 @@ class Estacionamiento {
     protected $id;
     
     /**
-     * @ORM\Column(type="string", unique=true)
-     * @Assert\Type(
-     *     type="string",
-     *     message="The value {{ value }} is not a valid {{ type }}."
-     * )
-     * @Expose
-     */
-    protected $codigo;
-    
-    /**
      * @ORM\Column(type="string",nullable=true)
      * @Assert\Type(
      *     type="string",
@@ -47,17 +33,13 @@ class Estacionamiento {
      * @Expose
      */
     protected $nombre;
-    
+
     /**
-     * @ORM\Column(type="string")
-     * @Assert\Choice(
-     *     choices = {"concesionado", "privado", "motocicletas"},
-     *     message = "Choose a valid type of instrument: 'concesionado', 'privado' or 'motocicletas'."
-     * )
      * @Assert\NotBlank
-     * @Expose
+     * @ORM\ManyToOne(targetEntity=TipoEstacionamiento::class)
+     * @ORM\JoinColumn(nullable=false)
      */
-    protected $tipo;
+    protected $tipoEstacionamiento;
     
     /**
      * @ORM\Column(type="float")
@@ -80,16 +62,6 @@ class Estacionamiento {
     protected $longitud;
     
     /**
-     * @ORM\Column(type="float")
-     * @Assert\Type(
-     *     type="float",
-     *     message="The value {{ value }} is not a valid {{ type }}."
-     * )
-     * @Expose
-     */
-    protected $precio;
-    
-    /**
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(type="datetime")
      */
@@ -108,14 +80,6 @@ class Estacionamiento {
     
     function getId() {
         return $this->id;
-    }
-    public function getCodigo() {
-        return $this->codigo;
-    }
-
-    public function setCodigo($codigo) {
-        $this->codigo = $codigo;
-        return $this;
     }
     
     public function getNombre() {
@@ -151,15 +115,6 @@ class Estacionamiento {
 
     public function setLongitud($longitud) {
         $this->longitud = $longitud;
-        return $this;
-    }
-    
-    public function getPrecio() {
-        return $this->precio;
-    }
-
-    public function setPrecio($precio) {
-        $this->precio = $precio;
         return $this;
     }
 }
