@@ -20,7 +20,7 @@ class EstacionamientoController extends AbstractFOSRestController
     public function getEstacionamientosAction() {
         $repository = $this->getDoctrine()->getRepository(Estacionamiento::class);
         $plazas = $repository->findAll();
-        return $this->handleView($this->view($plazas, JsonResponse::HTTP_OK));
+        return $this->handleView($this->view($plazas, JsonResponse::HTTP_OK, array('Access-Control-Allow-Origin'=>'*')));
     }
 
     /**
@@ -32,6 +32,6 @@ class EstacionamientoController extends AbstractFOSRestController
         if (!$tipoEstacionamiento) throw new HttpException(404, "tipo de estacionamiento no encontrado para el codigo especificado: '" . $codigoTipoEstacionamiento."'");
         $estacionamientoRepository = $this->getDoctrine()->getRepository(Estacionamiento::class);
         $estacionamientos = $estacionamientoRepository->findBy(array('tipoEstacionamiento' => $tipoEstacionamiento));
-        return $this->handleView($this->view($estacionamientos, JsonResponse::HTTP_OK));
+        return $this->handleView($this->view($estacionamientos, JsonResponse::HTTP_OK, array('Access-Control-Allow-Origin'=>'*')));
     }
 }

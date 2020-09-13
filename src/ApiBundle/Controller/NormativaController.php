@@ -18,6 +18,6 @@ class NormativaController extends AbstractFOSRestController
     public function getNormativasAction() {
         $repository = $this->getDoctrine()->getRepository(Normativa::class);
         $plazas = $repository->findAll();
-        return $this->handleView($this->view($plazas, JsonResponse::HTTP_OK));
+        return $this->handleView($this->view($plazas, JsonResponse::HTTP_OK, array('Access-Control-Allow-Origin'=>'*')));
     }
 }

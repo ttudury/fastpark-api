@@ -20,7 +20,7 @@ class EstacionamientoViaPublicaController extends AbstractFOSRestController
     public function getRestriccionesViaPublicaAction() {
         $repository = $this->getDoctrine()->getRepository(EstacionamientoViaPublica::class);
         $restriccionesViaPublica = $repository->findAll();
-        return $this->handleView($this->view($restriccionesViaPublica, JsonResponse::HTTP_OK));
+        return $this->handleView($this->view($restriccionesViaPublica, JsonResponse::HTTP_OK, array('Access-Control-Allow-Origin'=>'*')));
     }
 
     /**
@@ -32,6 +32,6 @@ class EstacionamientoViaPublicaController extends AbstractFOSRestController
         if (!$normativa) throw new HttpException(404, "Normativa no encontrada para el codigo especificado: '" . $codigoNormativa."'");
         $estacionamientoViaPublicaRepository = $this->getDoctrine()->getRepository(EstacionamientoViaPublica::class);
         $restriccionesViaPublica = $estacionamientoViaPublicaRepository->findBy(array('normativa' => $normativa));
-        return $this->handleView($this->view($restriccionesViaPublica, JsonResponse::HTTP_OK));
+        return $this->handleView($this->view($restriccionesViaPublica, JsonResponse::HTTP_OK, array('Access-Control-Allow-Origin'=>'*')));
     }
 }
