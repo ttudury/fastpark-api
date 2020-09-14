@@ -10,6 +10,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\EstacionamientoRepository")
  * @Serializer\ExclusionPolicy("all")
  * @ORM\HasLifecycleCallbacks
  * @GEDMO\SoftDeleteable(fieldName="deletedAt")
