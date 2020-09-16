@@ -54,7 +54,7 @@ class EstacionamientoViaPublicaController extends AbstractFOSRestController
                 unset($restriccionesViaPublica[$key]);
             }
         }
-
+        $restriccionesViaPublica = array_values($restriccionesViaPublica);
         return $this->handleView($this->view($restriccionesViaPublica, JsonResponse::HTTP_OK, array(
             'Access-Control-Allow-Origin'=>'*', 
             'Access-Control-Allow-Methods'=>'GET, POST, PATCH, PUT, DELETE, OPTIONS', 
