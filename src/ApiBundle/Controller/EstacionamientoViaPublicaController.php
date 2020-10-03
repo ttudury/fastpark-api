@@ -83,8 +83,8 @@ class EstacionamientoViaPublicaController extends AbstractFOSRestController
     }
 
     private function coordenadasEnRango($latitudes, $longitudes, $latitudReferencia, $longitudReferencia){
-        $minLat = $latitudReferencia*(-1)-0.01;
-        $maxLat = $latitudReferencia*(-1)+0.01;
+        $minLat = $latitudReferencia*(-1)-0.005;
+        $maxLat = $latitudReferencia*(-1)+0.005;
         $minLong = $longitudReferencia*(-1)-0.01;
         $maxLong = $longitudReferencia*(-1)+0.01;
 
